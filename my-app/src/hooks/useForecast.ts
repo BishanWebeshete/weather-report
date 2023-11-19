@@ -10,7 +10,7 @@ export const useForecast = () => {
   const getSearchOptions = async (value: string) => {
     try {
       const response = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${value.trim()},&limit=5&appid=${
+        `http://api.openweathermap.org/geo/1.0/direct?q=${value},&limit=5&appid=${
           process.env.REACT_APP_API_KEY
         }`
       );
@@ -18,8 +18,8 @@ export const useForecast = () => {
         throw new Error(`Bad Server Repsonse, ${response.status}`);
       }
       const jsonData = await response.json();
-      setOptions(jsonData);
       console.log(jsonData);
+      setOptions(jsonData);
     } catch (e) {
       console.error(e);
     }
@@ -39,7 +39,6 @@ export const useForecast = () => {
         list: jsonData.list.slice(0,16),
       }
       setForecast(forecastData);
-      console.log(forecast);
     } catch (e) {
       console.error(e);
     }
@@ -55,7 +54,7 @@ export const useForecast = () => {
   };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
+    const value = e.target.value.trimStart();
     setTerm(value);
     if (value === "") return;
     getSearchOptions(value);

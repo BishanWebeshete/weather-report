@@ -2,8 +2,14 @@ import React from "react";
 import { ForecastType } from "../types/index";
 import { BsFillSunriseFill } from "react-icons/bs";
 import { TbSunset } from "react-icons/tb";
-import { getSunTime } from "../helpers";
-// import Tile from "../components/Tile";
+import {
+  getSunTime,
+  getWindDirection,
+  getHumidityValue,
+  getPop,
+  getVisibilityValue,
+} from "../helpers/index";
+import Tile from "../components/Tile";
 
 type Props = {
   data: ForecastType;
@@ -27,7 +33,7 @@ export default function Forecast({ data }: Props) {
     bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg"
     >
       <div className="mx-auto w-[300px]">
-        <section className="text-center">
+        <section className="text-center lg:pt-4">
           <h2 className="text-2xl font-black">
             {data.name},<span className="font-thin">{data.country}</span>
           </h2>
@@ -39,6 +45,7 @@ export default function Forecast({ data }: Props) {
           </p>
           <p className="text-sm">
             H: <Degree temp={Math.ceil(today.main.temp_max)} />
+            <span> </span>
             L: <Degree temp={Math.floor(today.main.temp_min)} />
           </p>
         </section>
@@ -58,7 +65,7 @@ export default function Forecast({ data }: Props) {
             </div>
           ))}
         </section>
-        <section className="flex justify-between">
+        <section className="flex flex-wrap justify-between">
           <div
             className="w-[140px] text-xs font-bold flex flex-col items-center bg-white/20
           backdrop-blur-lg rounded drop-shadow-lg py-4 mb-5"
@@ -73,7 +80,55 @@ export default function Forecast({ data }: Props) {
             <TbSunset size={25} />
             <span className="mt-2">{getSunTime(data.sunset)}</span>
           </div>
-          {/* <Tile icon="wind" /> */}
+          <Tile
+            icon="wind"
+            title="Wind"
+            info={`${Math.round(today.wind.speed)}mph`}
+            description={`${getWindDirection(
+              Math.round(today.wind.speed)
+            )}, gusts ${today.wind.gust.toFixed(1)} mph`}
+          />
+          <Tile
+            icon="feels"
+            title="Feels like"
+            info={<Degree temp={Math.round(today.main.feels_like)} />}
+            description={`Feels ${
+              Math.round(today.main.feels_like) < Math.round(today.main.temp)
+                ? "colder"
+                : Math.round(today.main.feels_like) >
+                  Math.round(today.main.temp)
+                ? "warmer"
+                : Math.round(today.main.feels_like)
+            }`}
+          />
+          <Tile
+            icon="humidity"
+            title="Humidity"
+            info={`${today.main.humidity}%`}
+            description={getHumidityValue(today.main.humidity)}
+          />
+          <Tile
+            icon="pop"
+            title="Precipitation"
+            info={`${Math.round(today.pop * 100)}%`}
+            description={`${getPop(today.pop)}, clouds at ${today.clouds.all}%`}
+          />
+          <Tile
+            icon="pressure"
+            title="Pressure"
+            info={`${today.main.pressure} hPa`}
+            description={`${
+              Math.round(today.main.pressure) < 1013
+                ? "Lower than standard"
+                : "Higher than standard"
+            }`}
+          />
+          <Tile
+            icon="visibility"
+            title="Visibility"
+            info={`${(today.visibility / 1000).toFixed()} mi`}
+            description={getVisibilityValue(today.visibility)}
+          />
         </section>
       </div>
     </div>
