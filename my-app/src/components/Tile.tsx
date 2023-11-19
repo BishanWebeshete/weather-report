@@ -13,10 +13,10 @@ type Prop = {
 
 const icons = {
   wind: <FaWind />,
-  feels: <WiThermometer />,
-  humidity: <WiDust />,
+  feels: <WiThermometer size={20} />,
+  humidity: <WiDust size={25} />,
   visibility: <FaRegEye />,
-  pressure: <WiBarometer />,
+  pressure: <WiBarometer size={25} />,
   pop: <SiMoo />,
 };
 
@@ -24,8 +24,15 @@ export default function Tile({ icon, title, info, description }: Prop) {
   const Icon = icons[icon];
 
   return (
-    <div>
-      <p>{Icon}</p>
-    </div>
+    <article
+      className="w-[140px] h-[130px] text-zinc-700 bg-white/20 backdrop-blur-lg
+    rounded drop-shadow-lg p-2 mb-5 flex flex-col justify-between"
+    >
+      <div className="flex items-center text-sm font-bold">
+        {Icon} <h4 className="">{title}</h4>
+      </div>
+      <h3 className="mt-2 text-lg">{info}</h3>
+      <p className="text-xs font-bold">{description}</p>
+    </article>
   );
 }

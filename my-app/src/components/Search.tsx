@@ -42,7 +42,7 @@ export default function Search({
                 px-2 py-1 cursor-pointer"
                 onClick={() => onOptionSelect(option)}
               >
-                {option.name}
+                {option.name}, {option.state}, {option.country}
               </button>
             </li>
           ))}
