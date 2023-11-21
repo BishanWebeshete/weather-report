@@ -25,7 +25,7 @@ export default function Search({
         Weather <span className="font-black">Report</span>
       </h1>
       <p className="text-sm mt-2">
-        Please Enter a location, and choose an option from the dropdown
+        Please Enter a city, and choose an option from the dropdown
       </p>
       <div className="relative flex mt-10 md:mt-4">
         <input
