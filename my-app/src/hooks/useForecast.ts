@@ -18,7 +18,6 @@ export const useForecast = () => {
         throw new Error(`Bad Server Repsonse, ${response.status}`);
       }
       const jsonData = await response.json();
-      console.log(jsonData);
       setOptions(jsonData);
     } catch (e) {
       console.error(e);
