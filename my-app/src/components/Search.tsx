@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import { OptionType } from "../types/index";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
   options: [];
   onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onOptionSelect: (option: OptionType) => void;
-  onSubmit: () => void;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 };
 
 export default function Search({
@@ -28,32 +28,35 @@ export default function Search({
         Please Enter a city, and choose an option from the dropdown
       </p>
       <div className="relative flex mt-10 md:mt-4">
-        <input
-          type="text"
-          value={term}
-          className="px-2 py-1 rounded-l-md border-2 border-white"
-          onChange={onInputChange}
-        />
-        <ul className="absolute top-9 bg-white ml-1 rounded-b-md">
-          {options.map((option: OptionType, index: number) => (
-            <li key={`${option.name}-${index}`}>
-              <button
-                className="text-left text-sm w-full hover:bg-zinc-700 hover:text-white
+        <form onSubmit={onSubmit}>
+          <input
+            required
+            type="text"
+            value={term}
+            className="px-2 py-1 rounded-l-md border-2 border-white"
+            onChange={onInputChange}
+          />
+          <ul className="absolute top-9 bg-white ml-1 rounded-b-md">
+            {options.map((option: OptionType, index: number) => (
+              <li key={`${option.name}-${index}`}>
+                <button
+                  className="text-left text-sm w-full hover:bg-zinc-700 hover:text-white
                 px-2 py-1 cursor-pointer"
-                onClick={() => onOptionSelect(option)}
-              >
-                {option.name}, {option.state}, {option.country}
-              </button>
-            </li>
-          ))}
-        </ul>
-        <button
-          className="rounded-r-md border-2 border-zinc-100 hover:border-zinc-500
+                  onClick={() => onOptionSelect(option)}
+                >
+                  {option.name}, {option.state}, {option.country}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <button
+            type="submit"
+            className="rounded-r-md border-2 border-zinc-100 hover:border-zinc-500
         text-zinc-100 px-2 py-1 cursor-pointer"
-          onClick={onSubmit}
-        >
-          Search
-        </button>
+          >
+            Search
+          </button>
+        </form>
       </div>
     </section>
   );

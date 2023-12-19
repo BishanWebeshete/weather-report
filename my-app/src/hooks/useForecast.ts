@@ -1,4 +1,4 @@
-import {useState, useEffect, ChangeEvent} from 'react';
+import {useState, useEffect, ChangeEvent, FormEvent} from 'react';
 import {OptionType, ForecastType} from '../types/index';
 
 export const useForecast = () => {
@@ -41,7 +41,8 @@ export const useForecast = () => {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!city) return;
     getForecast(city);
   };
