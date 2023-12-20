@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React from "react";
 import Search from "./components/Search";
 import Forecast from "./components/Forecast";
 import { useForecast } from "./hooks/useForecast";
@@ -18,7 +18,7 @@ function App() {
           options={options}
           onInputChange={onInputChange}
           onOptionSelect={onOptionSelect}
-          onSubmit={(e: FormEvent<HTMLFormElement>) => onSubmit(e)}
+          onSubmit={onSubmit}
         />
       )}
     </main>
