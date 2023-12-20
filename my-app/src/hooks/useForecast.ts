@@ -47,7 +47,7 @@ export const useForecast = () => {
     getForecast(city);
   };
 
-  const onOptionSelect = async (option: OptionType) => {
+  const onOptionSelect = (option: OptionType) => {
     setCity(option);
   };
 
