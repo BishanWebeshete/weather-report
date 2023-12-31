@@ -32,7 +32,7 @@ export type ForecastType = {
       deg: number;
     }
     clouds: {
-      all: number
+      all: number;
     }
     pop: number;
     visibility: number;
